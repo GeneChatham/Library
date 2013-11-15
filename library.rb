@@ -1,4 +1,10 @@
+# Public: A Class containing information that a book Library
+# would want to keep track of.
 class Library
+
+  # Public: Initializes a Library with an empty Array of books
+  # 
+  # Called automatically when a new Library Object is created.
   def initialize
     @books = []
   end
@@ -25,8 +31,14 @@ class Library
   end
 end
 
+# Public: The Borrower Class describes a user of the Library system
 class Borrower
+
+  # Public: Creates a Borrower Object with a @name instance variable
+  #
+  # name - The String that will become the name of the Borrower
   def initialize(name)
+    @name = name
   end
 
   def borrowed_books
@@ -42,7 +54,15 @@ class Borrower
   end
 end
 
+# Public: The Book Class descibes a book with basic attributes
 class Book
+
+  # Public: Initialize a Book.
+  #
+  # title - The String that will name the title of the Book
+  # author - The String that will name the author of the Book
   def initialize(title, author)
+    @title = title
+    @author = author
   end
 end
