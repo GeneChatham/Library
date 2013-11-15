@@ -21,7 +21,18 @@ class Library
   def available_books
   end
 
+  # Public: Adds an object to the @books array
+  #
+  # book - The Object you want to be added to the array
+  #
+  # Examples
+  #
+  #     add_book(seagull)
+  #     # => @book = [seagull]
+  # 
+  # Returns nothing
   def add_book(book)
+    @books << book
   end
 
   def check_out(user, book)
