@@ -2,11 +2,13 @@
 # would want to keep track of.
 class Library
 
-  # Public: Initializes a Library with an empty Array of books
+  # Public: Initializes a Library with an empty Array of books and empty Hash 
+  #         for checked out books
   # 
   # Called automatically when a new Library Object is created.
   def initialize
     @books = []
+    @books_out = {}
   end
 
   def books
@@ -51,27 +53,58 @@ class Library
     @books << book
   end
 
+  # Public: checks out a Book to a Borrower. 
+  #
+  # user - The Borrower who will check out the book
+  # book - The Book to be checked out
+  #
+  # Examples
+  #
+  #     check_out(bruce, seagull)
+  #     # => @books_out = {seagull: bruce}
+  #     # => seagull.checked_out = true
+  #
+  # Returns nothing
   def check_out(user, book)
+    if user.books.length == 2
+      puts "This library patron already has two books checked out!"
+      return
+    end
+    if book.checked_out == false
+      book.checked_out = true
+      user.books << book
+      puts "Library patron #{user.name} has checked out #{book.title}."
+      return
+    end
   end
 
+  
   def check_in(book)
   end
+
 end
+
+
+
 
 # Public: The Borrower Class describes a user of the Library system
 class Borrower
 
-  # Public: Creates a Borrower Object with a @name instance variable
+  attr_accessor :books
+
+  # Public: Creates a Borrower Object with a name and Array of books checked out.
   #
   # name - The String that will become the name of the Borrower
   def initialize(name)
     @name = name
+    @books = []
   end
 
   def borrowed_books
   end
 
   def name
+    @name
   end
 
   def borrowed_books_count
@@ -81,8 +114,15 @@ class Borrower
   end
 end
 
+
+
+
+
 # Public: The Book Class descibes a book with basic attributes
 class Book
+
+  attr_accessor :checked_out
+  attr_accessor :title
 
   # Public: Initialize a Book that is not checked out.
   #
@@ -94,28 +134,16 @@ class Book
     @checked_out = false
   end
 
-  # Public: Returns the book title.
-  #
-  # Examples
-  #
-  #     2001.title
-  #     # => "2001: A Space Odyssey"
-  #
-  # Returns @title
-  def title
-    @title
-  end
-
-  # Public: Returns a Boolean indicating if the Book is checked out or not.
-  #
-  # Examples
-  #
-  #     2001.checked_out
-  #     # => true
-  #
-  # Returns @title
-  def checked_out
-    @checked_out
-  end
+  # # Public: Returns the book title.
+  # #
+  # # Examples
+  # #
+  # #     2001.title
+  # #     # => "2001: A Space Odyssey"
+  # #
+  # # Returns @title
+  # def title
+  #   @title
+  # end
 
 end
