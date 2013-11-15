@@ -74,7 +74,8 @@ class Library
       book.checked_out = true
       user.books << book
       puts "Library patron #{user.name} has checked out #{book.title}."
-      return
+    else
+      puts "Sorry, this books has already been checked out."
     end
   end
 
@@ -101,6 +102,7 @@ class Borrower
   end
 
   def borrowed_books
+    
   end
 
   def name
