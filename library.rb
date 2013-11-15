@@ -8,7 +8,6 @@ class Library
   # Called automatically when a new Library Object is created.
   def initialize
     @books = []
-    @books_out = {}
   end
 
   def books
@@ -34,9 +33,21 @@ class Library
   end
 
   def borrowed_books
+    puts "The following books have been checked out:"
+    @books.each do |book|
+      if book.checked_out
+        puts "    \"#{book.title}\" has been checked out by #{book.current_patron}"
+      end
+    end
   end
 
   def available_books
+    puts "The following books are available for check out:"
+    @books.each do |book|
+      if book.checked_out == false
+        puts "    \"#{book.title}\""
+      end
+    end
   end
 
   # Public: Adds an object to the @books array
@@ -72,8 +83,10 @@ class Library
     end
     if book.checked_out == false
       book.checked_out = true
+      book.current_patron = user.name
       user.books << book
-      puts "Library patron #{user.name} has checked out #{book.title}."
+      puts "Library patron #{user.name} has checked out \"#{book.title}.\""
+      puts @books_out
     else
       puts "Sorry, this books has already been checked out."
     end
@@ -102,7 +115,7 @@ class Borrower
   end
 
   def borrowed_books
-    
+    @books
   end
 
   def name
@@ -113,6 +126,10 @@ class Borrower
   end
 
   def borrowed_books_list
+    puts "#{@name} has checked out:"
+    @books.each do |book|
+      puts "    \"#{book.title}\""
+    end
   end
 end
 
@@ -125,6 +142,7 @@ class Book
 
   attr_accessor :checked_out
   attr_accessor :title
+  attr_accessor :current_patron
 
   # Public: Initialize a Book that is not checked out.
   #
@@ -134,6 +152,7 @@ class Book
     @title = title
     @author = author
     @checked_out = false
+    @current_patron = "none"
   end
 
   # # Public: Returns the book title.
