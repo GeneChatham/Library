@@ -83,10 +83,9 @@ class Library
     end
     if book.checked_out == false
       book.checked_out = true
-      book.current_patron = user.name
+      book.current_patron = user
       user.books << book
       puts "Library patron #{user.name} has checked out \"#{book.title}.\""
-      puts @books_out
     else
       puts "Sorry, this books has already been checked out."
     end
@@ -94,6 +93,13 @@ class Library
 
   
   def check_in(book)
+    if book.checked_out
+      puts "Library patron #{book.current_patron.name} has returned \"#{book.title}.\""
+      book.current_patron.books.delete(book)
+      book.current_patron = nil
+    else
+      puts "This book is already checked in!"
+    end
   end
 
 end
@@ -152,7 +158,7 @@ class Book
     @title = title
     @author = author
     @checked_out = false
-    @current_patron = "none"
+    @current_patron = nil
   end
 
   # # Public: Returns the book title.
