@@ -79,7 +79,46 @@ puts "this should only show the available books"
 library.available_books
 puts "-------------------------"
 
-puts "this should check a book back in"
+puts "this should check a book back in (feynman from gilbert)"
 library.check_in(feynman)
 puts "-------------------------"
 
+puts "list all five books in the library's catalog with their status:"
+library.list_books
+puts "-------------------------"
+
+puts "these should return the books each user checked out"
+puts ''
+puts "mike:"
+mike.borrowed_books_list
+puts ''
+puts "gilbert:"
+gilbert.borrowed_books_list
+puts ''
+puts "ricardo:"
+ricardo.borrowed_books_list
+puts "-------------------------"
+
+puts "this should only show the borrowed books with their borrowers"
+library.borrowed_books
+puts "-------------------------"
+
+puts "this book should still be available since it failed before"
+library.check_out(ricardo, feynman)
+puts "-------------------------"
+
+puts "these should return the books each user checked out"
+puts ''
+puts "mike:"
+mike.borrowed_books_list
+puts ''
+puts "gilbert:"
+gilbert.borrowed_books_list
+puts ''
+puts "ricardo:"
+ricardo.borrowed_books_list
+puts "-------------------------"
+
+puts "list all five books in the library's catalog with their status:"
+library.list_books
+puts "-------------------------"

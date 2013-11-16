@@ -36,7 +36,7 @@ class Library
     puts "The following books have been checked out:"
     @books.each do |book|
       if book.checked_out
-        puts "    \"#{book.title}\" has been checked out by #{book.current_patron}"
+        puts "    \"#{book.title}\" has been checked out by #{book.current_patron.name}."
       end
     end
   end
@@ -94,9 +94,10 @@ class Library
   
   def check_in(book)
     if book.checked_out
-      puts "Library patron #{book.current_patron.name} has returned \"#{book.title}.\""
+      puts "Library patron #{book.current_patron.name} has returned \"#{book.title}\"."
       book.current_patron.books.delete(book)
       book.current_patron = nil
+      book.checked_out = false
     else
       puts "This book is already checked in!"
     end
