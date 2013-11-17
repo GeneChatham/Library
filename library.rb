@@ -10,16 +10,14 @@ class Library
     @books = []
   end
 
-  def books
-  end
 
   # Public: puts a list of books and their checkout status to the console
   #
   # Examples
   #
-  #     listbooks
+  #     list_books
   #     # => '"Jonathan Livingston Seagull" : available '
-  #     # => '"2001: A Space Odyysey" : checked out'
+  #     # => '"2001: A Space Odyssey" : checked out'
   #
   # Returns nothing 
   def list_books
@@ -32,6 +30,16 @@ class Library
     end 
   end
 
+
+  # Public: puts a list of the borrowed books and their borrowers to the console
+  # Examples
+  #
+  #     borrowed_books
+  #     # => The following books have been checked out:
+  #     # =>    "Jonathan Livingston Seagull" has been checked out by Jill.
+  #     # =>    "2001: A Space Odyssey" has been checked out by Gene.
+  #
+  # Returns nothing
   def borrowed_books
     puts "The following books have been checked out:"
     @books.each do |book|
@@ -41,6 +49,16 @@ class Library
     end
   end
 
+
+  # Public: puts a list of the books available for checkout to the console
+  # Examples
+  #
+  #     borrowed_books
+  #     # => The following books are available for check out:
+  #     # =>    "Jonathan Livingston Seagull"
+  #     # =>    "2001: A Space Odyssey"
+  #
+  # Returns nothing
   def available_books
     puts "The following books are available for check out:"
     @books.each do |book|
@@ -50,19 +68,21 @@ class Library
     end
   end
 
-  # Public: Adds an object to the @books array
+
+  # Public: Adds an Object to the @books array
   #
   # book - The Object you want to be added to the array
   #
   # Examples
   #
   #     add_book(seagull)
-  #     # => @book = [seagull]
+  #     # => @books = [seagull]
   # 
   # Returns nothing
   def add_book(book)
     @books << book
   end
+
 
   # Public: checks out a Book to a Borrower. 
   #
@@ -72,8 +92,10 @@ class Library
   # Examples
   #
   #     check_out(bruce, seagull)
-  #     # => @books_out = {seagull: bruce}
   #     # => seagull.checked_out = true
+  #     # => seagull.current_patron = bruce
+  #     # => bruce.books = [seagull]
+  #     # => "Library patron Bruce has checked out "Jonathan Livingston Seagull"
   #
   # Returns nothing
   def check_out(user, book)
@@ -92,6 +114,19 @@ class Library
   end
 
   
+  # Public: checks a Book back into the Library.
+  #
+  # book - The Book to be checked in
+  #
+  # Examples
+  #
+  #     check_in(seagull)
+  #     # => "Library patron Bruce has returned "Jonathan Livingston Seagull""
+  #     # => bruce.books = []
+  #     # => seagull.current_patron = nil
+  #     # => seagull.checked_out = false
+  #
+  # Returns nothing
   def check_in(book)
     if book.checked_out
       puts "Library patron #{book.current_patron.name} has returned \"#{book.title}\"."
@@ -108,47 +143,58 @@ end
 
 
 
-# Public: The Borrower Class describes a user of the Library system
+# Public: The Borrower Class describes a user of the Library system.
 class Borrower
 
+  # Public: Gets/Sets the Borrowers Array list of Books currently held.
   attr_accessor :books
+
+  # Public: Gets/Sets the Borrowers's String name.  
+  attr_accessor :name
 
   # Public: Creates a Borrower Object with a name and Array of books checked out.
   #
-  # name - The String that will become the name of the Borrower
+  # name - The String that will become the name of the Borrower.
+  #
+  # Returns nothing
   def initialize(name)
     @name = name
     @books = []
   end
 
-  def borrowed_books
-    @books
-  end
 
-  def name
-    @name
-  end
-
-  def borrowed_books_count
-  end
-
+  # Public: Puts to the console the title of each book that the Borrower currently
+  #         has checked out.
+  #
+  # Examples
+  #
+  #     borrowed_books_list
+  #     # => "Jill has checked out:
+  #     # =>      "Jonathan Livingston Seagull""
+  # Returns nothing
   def borrowed_books_list
     puts "#{@name} has checked out:"
     @books.each do |book|
       puts "    \"#{book.title}\""
     end
   end
-end
+
+nd
 
 
 
 
 
-# Public: The Book Class descibes a book with basic attributes
+# Public: The Book Class descibes a book with basic attributes.
 class Book
 
+  # Public: Gets/Sets the Book's Boolean checked_out status.
   attr_accessor :checked_out
+
+  # Public: Gets/Sets the Book's String title.
   attr_accessor :title
+
+  # Public: Gets/Sets the Book's associated Borrower Object.
   attr_accessor :current_patron
 
   # Public: Initialize a Book that is not checked out.
@@ -162,16 +208,5 @@ class Book
     @current_patron = nil
   end
 
-  # # Public: Returns the book title.
-  # #
-  # # Examples
-  # #
-  # #     2001.title
-  # #     # => "2001: A Space Odyssey"
-  # #
-  # # Returns @title
-  # def title
-  #   @title
-  # end
 
 end
