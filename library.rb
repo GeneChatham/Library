@@ -179,7 +179,7 @@ class Borrower
     end
   end
 
-nd
+end
 
 
 
@@ -197,15 +197,24 @@ class Book
   # Public: Gets/Sets the Book's associated Borrower Object.
   attr_accessor :current_patron
 
+  # Public: Gets/Sets the Book's String for year published.
+  attr_accessor :year_published
+
+  # Public: Gets/Sets the Book's String edition.
+  attr_accessor :edition
+
+
   # Public: Initialize a Book that is not checked out.
   #
   # title - The String that will name the title of the Book
   # author - The String that will name the author of the Book
-  def initialize(title, author)
+  def initialize(title, author,year="unknown", edition="unknown")
     @title = title
     @author = author
     @checked_out = false
     @current_patron = nil
+    @year_published = year
+    @edition = edition
   end
 
 
