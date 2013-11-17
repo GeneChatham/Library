@@ -122,3 +122,9 @@ puts "-------------------------"
 puts "list all five books in the library's catalog with their status:"
 library.list_books
 puts "-------------------------"
+
+
+puts "leave a review with the feynman book from ricardo"
+feynman.add_review(ricardo, "5", "Great book!")
+puts "-------------------------"
+puts feynman.reviews

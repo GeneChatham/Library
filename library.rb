@@ -203,6 +203,8 @@ class Book
   # Public: Gets/Sets the Book's String edition.
   attr_accessor :edition
 
+  # Public: Gets/Sets the Book's Hash of review Arrays.
+  attr_accessor :reviews
 
   # Public: Initialize a Book that is not checked out.
   #
@@ -215,6 +217,22 @@ class Book
     @current_patron = nil
     @year_published = year
     @edition = edition
+    @reviews = {}
+  end
+
+  # Public: Adds to the @reviews Hash the Borrower as Key, and the
+  #         rating and review as Array values in the Hash Value Array
+  #
+  # user - the Borrower Object who is leaving the review
+  # rating - the String rating given to the book
+  # review - and optional String reveiw of the book
+  #
+  # Examples
+  #
+  #     add_review(jill, "5", "Great book!")
+  #     # => @reviews = {:jill => ["5", "Great book!"]}
+  def add_review(user, rating, review="no review")
+    @reviews[user.name] = [rating, review]
   end
 
 
